@@ -465,6 +465,14 @@ public class MusicService extends MediaBrowserServiceCompat implements SharedPre
             PlaylistsUtil.addToPlaylist(this, getCurrentSong(), playlistId, true);
         }
 
+        // :D
+        Song nextSong = getSongAt(playingQueue.getNextPosition(force));
+        if (nextSong.title.toLowerCase().contains("i like repetitive music")
+         || nextSong.title.toLowerCase().contains("i-like-repetitive-music")
+         || nextSong.title.toLowerCase().contains("i_like_repetitive_music")) {
+            setRepeatMode(REPEAT_MODE_THIS);
+        }
+
         playSongAt(playingQueue.getNextPosition(force));
     }
 
@@ -693,7 +701,6 @@ public class MusicService extends MediaBrowserServiceCompat implements SharedPre
 
         propagateRepeatChange();
     }
-
 
     private void propagateRepeatChange() {
         PreferenceManager.getDefaultSharedPreferences(this).edit()
