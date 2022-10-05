@@ -912,6 +912,14 @@ public class MusicService extends MediaBrowserServiceCompat implements SharedPre
     }
 
     public void playPreviousSong(boolean force) {
+        // :D
+        Song nextSong = getSongAt(playingQueue.getPreviousPosition(force));
+        if (nextSong.title.toLowerCase().contains("i like repetitive music")
+                || nextSong.title.toLowerCase().contains("i-like-repetitive-music")
+                || nextSong.title.toLowerCase().contains("i_like_repetitive_music")) {
+            setRepeatMode(REPEAT_MODE_THIS);
+        }
+
         playSongAt(playingQueue.getPreviousPosition(force));
     }
 
