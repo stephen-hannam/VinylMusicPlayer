@@ -465,14 +465,6 @@ public class MusicService extends MediaBrowserServiceCompat implements SharedPre
             PlaylistsUtil.addToPlaylist(this, getCurrentSong(), playlistId, true);
         }
 
-        // :D
-        Song nextSong = getSongAt(playingQueue.getNextPosition(force));
-        if (nextSong.title.toLowerCase().contains("i like repetitive music")
-         || nextSong.title.toLowerCase().contains("i-like-repetitive-music")
-         || nextSong.title.toLowerCase().contains("i_like_repetitive_music")) {
-            setRepeatMode(REPEAT_MODE_THIS);
-        }
-
         playSongAt(playingQueue.getNextPosition(force));
     }
 
@@ -819,6 +811,13 @@ public class MusicService extends MediaBrowserServiceCompat implements SharedPre
     }
 
     public void playSongAt(final int position) {
+        // :D
+        Song nextSong = getSongAt(position);
+        if (nextSong.title.toLowerCase().contains("i like repetitive music")
+                || nextSong.title.toLowerCase().contains("i-like-repetitive-music")
+                || nextSong.title.toLowerCase().contains("i_like_repetitive_music")) {
+            setRepeatMode(REPEAT_MODE_THIS);
+        }
         // handle this on the handlers thread to avoid blocking the ui thread
         playerHandler.removeMessages(PLAY_SONG);
         playerHandler.obtainMessage(PLAY_SONG, position, 0).sendToTarget();
@@ -912,14 +911,6 @@ public class MusicService extends MediaBrowserServiceCompat implements SharedPre
     }
 
     public void playPreviousSong(boolean force) {
-        // :D
-        Song nextSong = getSongAt(playingQueue.getPreviousPosition(force));
-        if (nextSong.title.toLowerCase().contains("i like repetitive music")
-                || nextSong.title.toLowerCase().contains("i-like-repetitive-music")
-                || nextSong.title.toLowerCase().contains("i_like_repetitive_music")) {
-            setRepeatMode(REPEAT_MODE_THIS);
-        }
-
         playSongAt(playingQueue.getPreviousPosition(force));
     }
 
